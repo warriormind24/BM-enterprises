@@ -345,6 +345,21 @@ img {
     flex-wrap: wrap;
 }
 
+/* Hero Image Section */
+.hero-image-section {
+    padding: 2rem 0 3rem;
+}
+
+.hero-image-section img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    box-shadow: var(--shadow-xl);
+    display: block;
+    margin: 0 auto;
+}
+
 .stat-item {
     text-align: center;
 }
@@ -515,6 +530,14 @@ img {
     margin-bottom: 1.5rem;
     color: var(--secondary);
     transition: var(--transition);
+    overflow: hidden;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
 }
 
 .service-card:hover .service-image {
@@ -1011,6 +1034,12 @@ img {
     color: var(--text-muted);
     position: relative;
     overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .project-image::after {
