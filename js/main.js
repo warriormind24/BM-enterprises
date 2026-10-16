@@ -16,6 +16,16 @@ navItems.forEach(item => {
     });
 });
 
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
 // Set current year in footer
 const currentYear = document.getElementById('current-year');
 if (currentYear) {
@@ -43,19 +53,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Intersection Observer for reveal animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all reveal elements
+document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+});
+
 // Contact form handling
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const btn = this.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
         btn.textContent = 'Sending...';
         btn.disabled = true;
-        
+
         const formData = new FormData(this);
-        
+
         fetch(this.action, {
             method: 'POST',
             body: formData,
@@ -86,14 +116,14 @@ const quoteForm = document.getElementById('quote-form');
 if (quoteForm) {
     quoteForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const btn = this.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
         btn.textContent = 'Submitting...';
         btn.disabled = true;
-        
+
         const formData = new FormData(this);
-        
+
         fetch(this.action, {
             method: 'POST',
             body: formData,
@@ -118,23 +148,3 @@ if (quoteForm) {
         });
     });
 }
-
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe service items and project cards
-document.querySelectorAll('.service-item, .project-card, .feature-item').forEach(el => {
-    observer.observe(el);
-});
